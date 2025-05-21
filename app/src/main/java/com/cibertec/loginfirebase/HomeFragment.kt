@@ -5,13 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 
 
 class HomeFragment : Fragment() {
+
+
     private lateinit var auth: FirebaseAuth
-    private lateinit var tvWelcome: TextView
+    private lateinit var btnNuevoMovimiento: Button
+    private lateinit var btnVerBalance: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,15 +24,26 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         auth = FirebaseAuth.getInstance()
-        tvWelcome= view.findViewById(R.id.tvWelcome)
 
-        // Mostrar email del usuario logueado
+        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         val currentUser = auth.currentUser
+        toolbar.title = "Bienvenido, ${currentUser?.email ?: "Usuario"}"
 
-        if (currentUser != null) {
-            tvWelcome.text = "Bienvenido, ${currentUser.email}"
-        } else {
-            tvWelcome.text = "Bienvenido"
+        btnNuevoMovimiento = view.findViewById(R.id.btnNuevoMovimiento)
+        btnVerBalance = view.findViewById(R.id.btnVerMovimientos)
+
+        btnNuevoMovimiento.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, NuevoMovimientoFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        btnVerBalance.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, BalanceFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return view

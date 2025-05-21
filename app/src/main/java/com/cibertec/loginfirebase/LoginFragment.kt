@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -23,6 +24,9 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
+        //este es el actioon bar
+        (activity as AppCompatActivity).supportActionBar?.hide()
+
         val view = inflater.inflate(R.layout.fragment_login, container, false)
 
         //base de datos
