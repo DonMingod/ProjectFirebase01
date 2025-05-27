@@ -15,7 +15,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var btnNuevoMovimiento: Button
-    private lateinit var btnVerBalance: Button
+    private lateinit var btnVerMovimiento: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         toolbar.title = "Bienvenido, ${currentUser?.email ?: "Usuario"}"
 
         btnNuevoMovimiento = view.findViewById(R.id.btnNuevoMovimiento)
-        btnVerBalance = view.findViewById(R.id.btnVerMovimientos)
+        btnVerMovimiento = view.findViewById(R.id.btnVerMovimientos)
 
         btnNuevoMovimiento.setOnClickListener {
             parentFragmentManager.beginTransaction()
@@ -39,9 +39,9 @@ class HomeFragment : Fragment() {
                 .commit()
         }
 
-        btnVerBalance.setOnClickListener {
+        btnVerMovimiento.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, BalanceFragment())
+                .replace(R.id.fragment_container, MovimientoFragment())
                 .addToBackStack(null)
                 .commit()
         }
